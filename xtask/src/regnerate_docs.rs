@@ -427,6 +427,20 @@ fn gen_directives(root_path: &Path) -> Result<()> {
         .current_dir(root_path)
         .status()
         .with_context(|| anyhow!("Failed to regenerate serialized nasm directives"))?;
+    println!("\tacme");
+    Command::new(PARSE_EXE)
+        .args([
+            "docs_store/directives/acme.xml",
+            "-o",
+            "asm-lsp/serialized/directives/acme",
+        ])
+        .arg("--doc-type")
+        .arg("directive")
+        .arg("--assembler")
+        .arg("acme")
+        .current_dir(root_path)
+        .status()
+        .with_context(|| anyhow!("Failed to regenerate serialized acme directives"))?;
 
     Ok(())
 }

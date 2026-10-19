@@ -23,7 +23,7 @@ const ARCH_LIST: [Arch; 11] = [
     Arch::Mips,
 ];
 
-const ASSEMBLER_LIST: [Assembler; 8] = [
+const ASSEMBLER_LIST: [Assembler; 9] = [
     Assembler::Gas,
     Assembler::Go,
     Assembler::Mars,
@@ -32,6 +32,7 @@ const ASSEMBLER_LIST: [Assembler; 8] = [
     Assembler::Ca65,
     Assembler::Avr,
     Assembler::Fasm,
+    Assembler::Acme,
 ];
 
 #[derive(Args, Debug, Clone)]

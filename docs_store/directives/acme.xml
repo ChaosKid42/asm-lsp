@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<directives>
+    <directive name="!8" tool="acme">
+        <description>Insert 8-bit values. Each expression is output as a single byte.</description>
+    </directive>
+    <directive name="!08" tool="acme">
+        <description>Insert 8-bit values. Each expression is output as a single byte.</description>
+    </directive>
+    <directive name="!by" tool="acme">
+        <description>Insert 8-bit values. Each expression is output as a single byte.</description>
+    </directive>
+    <directive name="!byte" tool="acme">
+        <description>Insert 8-bit values. Each expression is output as a single byte.</description>
+    </directive>
+    <directive name="!16" tool="acme">
+        <description>Insert 16-bit values in the chosen CPU's byte order. All currently supported CPUs are little-endian.</description>
+    </directive>
+    <directive name="!wo" tool="acme">
+        <description>Insert 16-bit values in the chosen CPU's byte order. All currently supported CPUs are little-endian.</description>
+    </directive>
+    <directive name="!word" tool="acme">
+        <description>Insert 16-bit values in the chosen CPU's byte order. All currently supported CPUs are little-endian.</description>
+    </directive>
+    <directive name="!le16" tool="acme">
+        <description>Insert 16-bit values in little-endian byte order.</description>
+    </directive>
+    <directive name="!be16" tool="acme">
+        <description>Insert 16-bit values in big-endian byte order.</description>
+    </directive>
+    <directive name="!24" tool="acme">
+        <description>Insert 24-bit values in the chosen CPU's byte order. All currently supported CPUs are little-endian.</description>
+    </directive>
+    <directive name="!le24" tool="acme">
+        <description>Insert 24-bit values in little-endian byte order.</description>
+    </directive>
+    <directive name="!be24" tool="acme">
+        <description>Insert 24-bit values in big-endian byte order.</description>
+    </directive>
+    <directive name="!32" tool="acme">
+        <description>Insert 32-bit values in the chosen CPU's byte order. All currently supported CPUs are little-endian.</description>
+    </directive>
+    <directive name="!le32" tool="acme">
+        <description>Insert 32-bit values in little-endian byte order.</description>
+    </directive>
+    <directive name="!be32" tool="acme">
+        <description>Insert 32-bit values in big-endian byte order.</description>
+    </directive>
+    <directive name="!hex" tool="acme">
+        <description>Insert byte values from pairs of hexadecimal digits. No prefix or separators are allowed, though spaces and tabs may be used between pairs.</description>
+    </directive>
+    <directive name="!h" tool="acme">
+        <description>Insert byte values from pairs of hexadecimal digits. No prefix or separators are allowed, though spaces and tabs may be used between pairs.</description>
+    </directive>
+    <directive name="!fill" tool="acme">
+        <description>Fill a given amount of memory with a value. If the value is omitted, zero is used.</description>
+    </directive>
+    <directive name="!fi" tool="acme">
+        <description>Fill a given amount of memory with a value. If the value is omitted, zero is used.</description>
+    </directive>
+    <directive name="!skip" tool="acme">
+        <description>Advance the program counter without starting a new segment.</description>
+    </directive>
+    <directive name="!align" tool="acme">
+        <description>Fill memory until the program counter ANDed with the given value equals the target value. The optional fill value defaults to $ea, the 6502 NOP opcode.</description>
+    </directive>
+    <directive name="!convtab" tool="acme">
+        <description>Choose the text conversion table used by string pseudo opcodes. Valid keywords are pet, raw, and scr, or a file name holding a 256-byte conversion table.</description>
+    </directive>
+    <directive name="!ct" tool="acme">
+        <description>Choose the text conversion table used by string pseudo opcodes. Valid keywords are pet, raw, and scr, or a file name holding a 256-byte conversion table.</description>
+    </directive>
+    <directive name="!text" tool="acme">
+        <description>Output the given strings using the current conversion table.</description>
+    </directive>
+    <directive name="!tx" tool="acme">
+        <description>Output the given strings using the current conversion table.</description>
+    </directive>
+    <directive name="!pet" tool="acme">
+        <description>Output the given strings using the PetSCII conversion table.</description>
+    </directive>
+    <directive name="!raw" tool="acme">
+        <description>Output the given strings without any conversion.</description>
+    </directive>
+    <directive name="!scr" tool="acme">
+        <description>Output the given strings using the C64 screen code conversion table.</description>
+    </directive>
+    <directive name="!scrxor" tool="acme">
+        <description>Output the given strings using the C64 screen code conversion table, XORing each result with the given value.</description>
+    </directive>
+    <directive name="!to" tool="acme">
+        <description>Set the output file name and format. Valid formats are cbm, plain, and apple. If the format is omitted, cbm is used.</description>
+    </directive>
+    <directive name="!source" tool="acme">
+        <description>Assemble another source file, then continue with the current one.</description>
+    </directive>
+    <directive name="!src" tool="acme">
+        <description>Assemble another source file, then continue with the current one.</description>
+    </directive>
+    <directive name="!binary" tool="acme">
+        <description>Insert a binary file into the output, optionally limiting the size and skipping an initial offset.</description>
+    </directive>
+    <directive name="!bin" tool="acme">
+        <description>Insert a binary file into the output, optionally limiting the size and skipping an initial offset.</description>
+    </directive>
+    <directive name="!zone" tool="acme">
+        <description>Start a new zone for local symbols. Zones can be nested and may be given a block.</description>
+    </directive>
+    <directive name="!zn" tool="acme">
+        <description>Start a new zone for local symbols. Zones can be nested and may be given a block.</description>
+    </directive>
+    <directive name="!symbollist" tool="acme">
+        <description>Write a list of all global symbols to the given file after assembly is finished.</description>
+    </directive>
+    <directive name="!sl" tool="acme">
+        <description>Write a list of all global symbols to the given file after assembly is finished.</description>
+    </directive>
+    <directive name="!if" tool="acme">
+        <description>Conditionally assemble a block depending on a condition, with an optional else block.</description>
+    </directive>
+    <directive name="!ifdef" tool="acme">
+        <description>Assemble a block only if the given symbol is already defined.</description>
+    </directive>
+    <directive name="!ifndef" tool="acme">
+        <description>Assemble a block only if the given symbol is not yet defined.</description>
+    </directive>
+    <directive name="!for" tool="acme">
+        <description>Assemble a block repeatedly, with a loop counter ranging from the start to the end value.</description>
+    </directive>
+    <directive name="!set" tool="acme">
+        <description>Assign a value to a symbol even if it is already defined. Useful for loop counters.</description>
+    </directive>
+    <directive name="!do" tool="acme">
+        <description>Assemble a block repeatedly while or until a condition holds. Conditions may appear before and/or after the block.</description>
+    </directive>
+    <directive name="!endoffile" tool="acme">
+        <description>Stop processing the current source file.</description>
+    </directive>
+    <directive name="!eof" tool="acme">
+        <description>Stop processing the current source file.</description>
+    </directive>
+    <directive name="!warn" tool="acme">
+        <description>Emit a warning during assembly.</description>
+    </directive>
+    <directive name="!error" tool="acme">
+        <description>Emit an error during assembly. No output file will be generated.</description>
+    </directive>
+    <directive name="!serious" tool="acme">
+        <description>Emit a serious error and stop assembly immediately.</description>
+    </directive>
+    <directive name="!macro" tool="acme">
+        <description>Define a macro. Parameters may be passed by value or, with a leading '~', by reference.</description>
+    </directive>
+    <directive name="!initmem" tool="acme">
+        <description>Set the value used to fill gaps between segments in the output file.</description>
+    </directive>
+    <directive name="!xor" tool="acme">
+        <description>XOR all subsequently output bytes with the given value. With a block, the previous value is restored afterwards.</description>
+    </directive>
+    <directive name="!pseudopc" tool="acme">
+        <description>Assemble a block as if the program counter had the given value, for code that will be copied elsewhere before running.</description>
+    </directive>
+    <directive name="!cpu" tool="acme">
+        <description>Select the target processor. Valid keywords include 6502, 6510, 65c02, r65c02, w65c02, 65816, 65ce02, 4502, and c64dtv2.</description>
+    </directive>
+    <directive name="!al" tool="acme">
+        <description>Assume a long (16-bit) accumulator. Only valid for the 65816.</description>
+    </directive>
+    <directive name="!as" tool="acme">
+        <description>Assume a short (8-bit) accumulator. Only valid for the 65816.</description>
+    </directive>
+    <directive name="!rl" tool="acme">
+        <description>Assume long (16-bit) index registers. Only valid for the 65816.</description>
+    </directive>
+    <directive name="!rs" tool="acme">
+        <description>Assume short (8-bit) index registers. Only valid for the 65816.</description>
+    </directive>
+    <directive name="!address" tool="acme">
+        <description>Mark a block or symbol definition as containing addresses for the optional type check system.</description>
+    </directive>
+    <directive name="!addr" tool="acme">
+        <description>Mark a block or symbol definition as containing addresses for the optional type check system.</description>
+    </directive>
+    <directive name="!cbm" tool="acme">
+        <description>Obsolete. Use !convtab pet instead.</description>
+    </directive>
+    <directive name="!subzone" tool="acme">
+        <description>Obsolete. Use !zone with a block instead.</description>
+    </directive>
+    <directive name="!sz" tool="acme">
+        <description>Obsolete. Use !zone with a block instead.</description>
+    </directive>
+    <directive name="!realpc" tool="acme">
+        <description>Obsolete. Use !pseudopc with a block instead.</description>
+    </directive>
+    <directive name="*" tool="acme">
+        <description>The current program counter. During offset assembly, this gives the value of the pseudo program counter.</description>
+    </directive>
+</directives>

@@ -115,6 +115,7 @@ pub fn run_lsp() -> Result<()> {
             String::from("%"),
             String::from("."),
             String::from("$"),
+            String::from("!"),
         ]),
         ..Default::default()
     });

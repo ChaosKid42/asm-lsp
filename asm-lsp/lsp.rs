@@ -672,6 +672,35 @@ pub fn apply_compile_cmd(
 ///
 /// # Panics
 fn get_diagnostics(diagnostics: &mut Vec<Diagnostic>, tool_output: &str, cfg: &Config) {
+    // Special handling for ACME assembler diagnostics
+    if cfg.is_assembler_enabled(Assembler::Acme) {
+        // ACME's default error format is:
+        // Error - File <file>, line <line> (<section type> <section title>): <message>
+        static ACME_DIAG: LazyLock<Regex> =
+            LazyLock::new(|| Regex::new(r"^.*line (\d+) \([^)]*\): (.*)$").unwrap());
+        for line in tool_output.lines() {
+            if let Some(caps) = ACME_DIAG.captures(line) {
+                let Ok(line_number) = caps[1].parse::<u32>() else {
+                    continue;
+                };
+                diagnostics.push(Diagnostic::new_simple(
+                    Range {
+                        start: Position {
+                            line: line_number.saturating_sub(1),
+                            character: 0,
+                        },
+                        end: Position {
+                            line: line_number.saturating_sub(1),
+                            character: 0,
+                        },
+                    },
+                    caps[2].to_string(),
+                ));
+            }
+        }
+        return;
+    }
+
     // Special handingling for FASM assembler diagnostics
     if cfg.is_assembler_enabled(Assembler::Fasm) {
         // https://flatassembler.net/docs.php?article=manual - 1.1.3 Compile messages
@@ -943,6 +972,20 @@ pub fn get_hover_resp(
             let prefixed = format!("%{word}");
             let directive_lookup =
                 get_directive_hover_resp(&prefixed, &store.names_to_info.directives, config);
+            if directive_lookup.is_some() {
+                return directive_lookup;
+            }
+        } else if config.is_assembler_enabled(Assembler::Acme) {
+            // all acme pseudo opcodes have a '!' prefix, but the program
+            // counter pseudo variable '*' does not
+            let prefixed = format!("!{word}");
+            let directive_lookup =
+                get_directive_hover_resp(&prefixed, &store.names_to_info.directives, config);
+            if directive_lookup.is_some() {
+                return directive_lookup;
+            }
+            let directive_lookup =
+                get_directive_hover_resp(word, &store.names_to_info.directives, config);
             if directive_lookup.is_some() {
                 return directive_lookup;
             }
@@ -1331,6 +1374,17 @@ pub fn get_comp_resp(
                         &completion_items.directives,
                         config,
                         Some('.'),
+                    ),
+                });
+            }
+            // prepend all ACME directives with "!"
+            Some("!") if config.is_assembler_enabled(Assembler::Acme) => {
+                return Some(CompletionList {
+                    is_incomplete: true,
+                    items: filtered_comp_list_assem(
+                        &completion_items.directives,
+                        config,
+                        Some('!'),
                     ),
                 });
             }

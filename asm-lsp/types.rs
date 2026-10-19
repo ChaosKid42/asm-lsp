@@ -1026,6 +1026,9 @@ pub enum Assembler {
     #[strum(serialize = "nasm")]
     #[serde(rename = "nasm")]
     Nasm,
+    #[strum(serialize = "acme")]
+    #[serde(rename = "acme")]
+    Acme,
     #[serde(skip)]
     None,
 }
@@ -1066,6 +1069,7 @@ impl Assembler {
             Self::Mars => load_directives_with_path!(Self::Mars, "serialized/directives/mars"),
             Self::Masm => load_directives_with_path!(Self::Masm, "serialized/directives/masm"),
             Self::Nasm => load_directives_with_path!(Self::Nasm, "serialized/directives/nasm"),
+            Self::Acme => load_directives_with_path!(Self::Acme, "serialized/directives/acme"),
             Self::None => unreachable!(),
         }
     }

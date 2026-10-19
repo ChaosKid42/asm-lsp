@@ -8,8 +8,8 @@
 Provide hovering, autocompletion, signature help, go to definition, and view
 references for assembly files written in the GAS/NASM or GO assembly flavors. It
 supports assembly files for the x86, x86_64, ARM, RISCV, z80, AVR, and 6502 instruction
-sets. Supported assemblers include the Gas, Go, Masm, Nasm, ca65, AVR, and FASM
-assemblers.
+sets. Supported assemblers include the Gas, Go, Masm, Nasm, ca65, AVR, FASM, and
+ACME assemblers.
 
 This tool can serve as reference when reading the assembly output of a program.
 This way you can query what each command exactly does and deliberate about
@@ -156,6 +156,7 @@ Valid options for the `assembler` field include:
 - `"avr"`
 - `"fasm"`
 - `"mars"`
+- `"acme"`
 
 Don't see an architecture and/or assembler that you'd like to work with? File an
 [issue](https://github.com/bergercookie/asm-lsp/issues/new/choose)! We would be
@@ -247,6 +248,9 @@ git repository.
 
 - CA65 assembler documentation sourced from the [cc65](https://github.com/cc65/doc)
     project's [documentation](https://cc65.github.io/doc/ca65.html)
+
+- ACME assembler documentation sourced from the [ACME cross assembler](https://github.com/meonwax/acme)
+    project's [documentation](https://github.com/meonwax/acme/tree/master/docs)
 
 - PowerISA instruction documentation sourced from the [open-power-sdk](https://github.com/open-power-sdk)
     PowerISA [documentation](https://github.com/open-power-sdk/PowerISA?tab=Apache-2.0-1-ov-file)*

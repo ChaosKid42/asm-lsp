@@ -157,6 +157,7 @@ fn run(opts: &SerializeDocs) -> Result<()> {
                     }
                     Assembler::Ca65 => populate_ca65_directives(&conts)?,
                     Assembler::Avr => populate_avr_directives(&conts)?,
+                    Assembler::Acme => populate_masm_nasm_fasm_mars_directives(&conts)?,
                     Assembler::None => unreachable!(),
                 },
             };

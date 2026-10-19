@@ -171,6 +171,15 @@ mod tests {
         }
     }
 
+    fn acme_test_config() -> Config {
+        Config {
+            version: None,
+            assembler: Assembler::Acme,
+            instruction_set: Arch::None,
+            opts: Some(ConfigOptions::default()),
+        }
+    }
+
     fn mars_test_config() -> Config {
         Config {
             version: None,
@@ -211,6 +220,7 @@ mod tests {
         avr_directives: Vec<Directive>,
         fasm_directives: Vec<Directive>,
         mars_directives: Vec<Directive>,
+        acme_directives: Vec<Directive>,
     }
 
     impl GlobalInfo {
@@ -243,6 +253,7 @@ mod tests {
                 avr_directives: Vec::new(),
                 fasm_directives: Vec::new(),
                 mars_directives: Vec::new(),
+                acme_directives: Vec::new(),
             }
         }
     }
@@ -462,6 +473,13 @@ mod tests {
             Vec::new()
         };
 
+        info.acme_directives = if config.is_assembler_enabled(Assembler::Acme) {
+            let acme_dirs = include_bytes!("serialized/directives/acme");
+            bincode::borrow_decode_from_slice(acme_dirs, BINCODE_CFG)?.0
+        } else {
+            Vec::new()
+        };
+
         Ok(info)
     }
 
@@ -627,6 +645,12 @@ mod tests {
         populate_name_to_directive_map(
             Assembler::Mars,
             &info.mars_directives,
+            &mut store.names_to_info.directives,
+        );
+
+        populate_name_to_directive_map(
+            Assembler::Acme,
+            &info.acme_directives,
             &mut store.names_to_info.directives,
         );
 
@@ -1559,6 +1583,59 @@ Define byte sized data. Must be followed by a sequence of (byte ranged) expressi
 
 More info: https://cc65.github.io/doc/ca65.html#ss11.10"#,
             &ca65_test_config(),
+        );
+    }
+
+    /**************************************************************************
+     * ACME Tests
+     *************************************************************************/
+    #[test]
+    fn handle_hover_acme_it_provides_dir_info_1() {
+        test_hover(
+            "!by<cursor>te 1, 2, 3",
+            "!byte [acme]
+Insert 8-bit values. Each expression is output as a single byte.",
+            &acme_test_config(),
+        );
+    }
+
+    #[test]
+    fn handle_hover_acme_it_provides_dir_info_2() {
+        test_hover(
+            "!fi<cursor>ll 256, $ff",
+            "!fill [acme]
+Fill a given amount of memory with a value. If the value is omitted, zero is used.",
+            &acme_test_config(),
+        );
+    }
+
+    #[test]
+    fn handle_hover_acme_it_provides_info_asterisk() {
+        test_hover(
+            "*<cursor> = $c000",
+            "* [acme]
+The current program counter. During offset assembly, this gives the value of the pseudo program counter.",
+            &acme_test_config(),
+        );
+    }
+
+    #[test]
+    fn handle_autocomplete_acme_it_provides_dir_comps_1() {
+        test_directive_autocomplete(
+            "!<cursor>",
+            &acme_test_config(),
+            CompletionTriggerKind::TRIGGER_CHARACTER,
+            Some("!".to_string()),
+        );
+    }
+
+    #[test]
+    fn handle_autocomplete_acme_it_provides_dir_comps_2() {
+        test_directive_autocomplete(
+            "!by<cursor>",
+            &acme_test_config(),
+            CompletionTriggerKind::INVOKED,
+            None,
         );
     }
 
@@ -3292,6 +3369,14 @@ Width: 8 bits",
         serialized_directives_test!(
             "serialized/directives/mars",
             "../docs_store/directives/mars.xml",
+            populate_masm_nasm_fasm_mars_directives
+        );
+    }
+    #[test]
+    fn serialized_acme_directives_are_up_to_date() {
+        serialized_directives_test!(
+            "serialized/directives/acme",
+            "../docs_store/directives/acme.xml",
             populate_masm_nasm_fasm_mars_directives
         );
     }
